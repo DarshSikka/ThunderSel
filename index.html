@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThunderSell</title>
+     <style>
+         #cam{
+             border:2px solid red;
+             width:400px;
+             height:300px;
+             top:200px;
+             left:200px;
+         }
+         #lal{
+             height: 30;
+             width:30;
+             left:250;
+             top:250;
+         }
+     </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <link rel="icon" href="S.png" type="image/x-icon">
+  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.js"></script>
+</head>
+<body>
+    <center>
+        <label>Choose Photo Type(TIFF is best quality)</label>
+        <select id="quality">
+          <option value="png">PNG</option>
+          <option value="jpg">JPG</option>
+          <option value="tiff">TIFF</option>
+          <option VALUE="raw">RAW</option>
+          <option value="psd">PSD</option>
+        </select><br>
+    <h1 class="btn btn-success" onclick="public()">ThunderSell</h1>
+    <h2>take your selfies</h2>
+    <textarea id="takeInput" readonly="true" class="form-control"></textarea>
+    <button id="start" class="btn btn-warning text-secondary" onclick="startTake()">start</button>
+    <a  id="link" href="/" download="THUNDERSELFIE.png"></a>
+    <div id="cam">
+    </div>
+    <br>
+    <div id="result"></div> 
+    <script src="main.js">
+    </script>
+    </center>
+</body>
+</html>

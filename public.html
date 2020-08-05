@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PublicLibrary</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <link rel="icon" href="S.png" type="image/x-icon">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
+  <style>
+      @keyframes d {
+          50%{border:2PX solid blue;}
+          50%{border:2px solid black;}
+      }
+      .si{
+          animation-name: d;
+          animation-duration: 5s;
+          animation-iteration-count: infinite;
+      }
+  </style>
+<body>
+    <h1>Public Library for Thundersell</h1>
+    <input id="myInput" onkeydown="myFunction()">
+
+    <div id="photos" class="bg-primary text-success">
+        
+    </div>
+    <script>
+       var firebaseConfig = {
+    apiKey: "AIzaSyB5wq4pKKaVD3-KIPDtGfUXovq7HnDXRMw",
+    authDomain: "thundercellpublicselfies.firebaseapp.com",
+    databaseURL: "https://thundercellpublicselfies.firebaseio.com",
+    projectId: "thundercellpublicselfies",
+    storageBucket: "thundercellpublicselfies.appspot.com",
+    messagingSenderId: "540281536298",
+    appId: "1:540281536298:web:c4a810cf97e3a302fda853",
+    measurementId: "G-WGYR2EK0KL"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  function getData() { 
+    firebase.database().ref("/").on('value', function(snapshot) 
+    { document.getElementById("photos").innerHTML =""; snapshot.forEach(function(childSnapshot) 
+{ childKey  = childSnapshot.key; childData = childSnapshot.val();
+     if(childKey != "roomname") {
+    firebase_message_id = childKey;
+    message_data = childData;
+console.log(firebase_message_id);
+console.log(message_data);
+photo=message_data['photo'];
+nam=message_data['name'];
+add="<img class='si'src='"+photo+"'id='"+nam+"'><li><a style='color:red'href='#'>"+nam+"</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+document.getElementById('photos').innerHTML+=add;
+ } });  }); }
+ getData();
+ function myFunction() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("photos");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue =a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "inline";
+            document.getElementById(txtValue).style.display="inline";
+        } else {
+            li[i].style.display = "none";
+            document.getElementById(txtValue).style.display="none";
+        }
+    }
+}
+</script>
+</body>
+</html>
