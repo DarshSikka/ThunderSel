@@ -12,6 +12,19 @@
              top:200px;
              left:200px;
          }
+         #Thundersell{
+             width:400px;
+             height:300px;
+         }
+         canvas{
+             width:400px;
+             height:300px;
+             border: 2px solid red;
+             background-color: rgba(255, 255, 255, 0.5);
+         }
+         body{
+             background-color: orange;
+         }
      </style>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -22,10 +35,15 @@
   <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.js"></script>
+  <script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
+
 </head>
 <body>
     <center>
-        <label>Choose Photo Type(TIFF is best quality)</label>
+        
+    <h1 class="btn btn-success" onclick="public()">⚡Sel➡️View Public Library</h1>
+    <h2>The Photo Media powered by Dashbook</h2>
+    <label>Choose Photo Type(TIFF is best quality)</label>
         <select id="quality">
           <option value="png">PNG</option>
           <option value="jpg">JPG</option>
@@ -33,15 +51,20 @@
           <option VALUE="raw">RAW</option>
           <option value="psd">PSD</option>
         </select><br>
-    <h1 class="btn btn-success" onclick="public()">ThunderSell</h1>
-    <h2>take your selfies</h2>
+        <label><strong>The most liked Photo in ThunderSel:</strong></label><img id="thunderPhoto" src="">
     <textarea id="takeInput" readonly="true" class="form-control"></textarea>
-    <button id="start" class="btn btn-warning text-secondary" onclick="startTake()">start</button>
+    <button id="start" class="btn btn-warning text-secondary" onclick="startTake()">start</button>&nbsp;&nbsp;<button class='btn btn-warning text-secondary' onclick='take_d_photo()'>Click</button>
     <a  id="link" href="/" download="THUNDERSELFIE.png"></a>
     <div id="cam">
+    </div><br>
+    <div id='express'>
     </div>
+<input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)">
+
     <br>
-    <div id="result"></div> 
+    <label><strong>Preview:</strong></label><div id="result"><img id="Thundersell"></div> 
+    <label><strong>Final Upload(only for uploads):</strong></label><br><canvas width="300" height="300"id="uploaded_result"></canvas>
+    <img id='dispatch'>
     <script src="main.js">
     </script>
     </center>
