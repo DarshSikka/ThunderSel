@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PublicLibrary</title>
+    <title>Public Library ThunderSel</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -22,10 +22,12 @@
           animation-name: d;
           animation-duration: 5s;
           animation-iteration-count: infinite;
+          width:400;
+          height:300;
       }
   </style>
 <body>
-    <h1>Public Library for Thundersell</h1>
+    <h1>Public Library for ThunderSel</h1>
     <input id="myInput" onkeydown="myFunction()">
 
     <div id="photos" class="bg-primary text-success">
@@ -55,8 +57,15 @@ console.log(firebase_message_id);
 console.log(message_data);
 photo=message_data['photo'];
 nam=message_data['name'];
-add="<img class='si'src='"+photo+"'id='"+nam+"'><li><a style='color:red'href='#'>"+nam+"</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-document.getElementById('photos').innerHTML+=add;
+likes=message_data['likes'];
+laughs=message_data['laughs'];
+add="<div id='"+firebase_message_id+"'><img class='si'src='"+photo+"'name='"+nam+"'><br><li><a style='color:red'href='#'>"+nam+"</a></li><br>";
+part3="<button id='like"+firebase_message_id+"'class='btn btn-warning' onclick='updateLike(this.id)' value='"+likes+"'><span class='glyphicon glyphicon-thumbs-up'>#like</span>"+likes+
+"</button>";
+part4="<button id='laugh"+firebase_message_id+"'class='btn btn-warning' onclick='updateLaugh(this.id)' value='"+laughs+"'>&#128515;#laugh</span>"
++laughs+"</button></div>";
+row=add+part3+part4;
+document.getElementById('photos').innerHTML+=row;
  } });  }); }
  getData();
  function myFunction() {
@@ -64,18 +73,47 @@ document.getElementById('photos').innerHTML+=add;
     input = document.getElementById("myInput");
     filter = input.value.toUpperCase();
     ul = document.getElementById("photos");
-    li = ul.getElementsByTagName("li");
+    li = ul.getElementsByTagName("div");
     for (i = 0; i < li.length; i++) {
         a = li[i].getElementsByTagName("a")[0];
         txtValue =a.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "inline";
-            document.getElementById(txtValue).style.display="inline";
+            li[i].style.display = "";
         } else {
             li[i].style.display = "none";
-            document.getElementById(txtValue).style.display="none";
+            console.log(document.getElementById(txtValue))
         }
     }
+}
+function updateLike(para){//makes the functionality of likes
+    if(localStorage.getItem("likedOrNoFor"+para)!=1){
+        var para2=para.replace('like', '');
+    current_likes=document.getElementById(para).value;
+    current_likes=Number(current_likes)+1;
+    console.log(current_likes);
+    firebase.database().ref(para2).update({
+      likes:current_likes
+    });
+}
+else{
+    window.alert("You cannot like a message more than once.")
+}
+ localStorage.setItem("likedOrNoFor"+para, 1);
+}
+function updateLaugh(ha){
+    ha2=ha.replace('laugh', '')
+    if(localStorage.getItem("laughOrNoFor"+ha)!=1){
+        current_laughs=document.getElementById(ha).value;
+        current_laughs=Number(current_laughs)+1;
+        console.log(current_laughs);
+        firebase.database().ref(ha2).update({
+          laughs:current_laughs
+        });
+    }
+    else{
+        window.alert("You cannot laugh at a message more than once.")
+    }
+     localStorage.setItem("laughOrNoFor"+ha, 1);
 }
 </script>
 </body>
