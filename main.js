@@ -117,20 +117,11 @@ Webcam.snap( function(data_uri) {
     '<img id="Thundersell"src="'+data_uri+'"/>';
   } );
 }
-var specialChars="!@#$%^&*()¡™£?¢§ˆ¶•ªº[{}]/".split('');
 function save(){
     image.src=document.getElementById("Thundersell").src;
     console.log(emotion_identify(image));
     document.getElementById("link").href=image.src;
     b=window.prompt("What name should we save your photo as?");
-    b=b.replace('.', '');
-    b=b.replace('-', '_');
-    for(var zan=0;zan<specialChars.length; zan++){
-        if(b.indexOf(specialChars[zan])>-1){
-            b=b.replace(specialChars[zan], '_');
-        }
-    }
-    console.log(b);
     document.getElementById("link").download=b+"."+x.value;
     document.getElementById("link").click();
     console.log("image.src");
